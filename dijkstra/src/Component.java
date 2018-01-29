@@ -68,8 +68,6 @@ public class Component{
         dijkstra.execute(nodes.get(0));
         LinkedList<Vertex> path = dijkstra.getPath(nodes.get(10));
 
-        //assertNotNull(path);
-        //assertTrue(path.size() > 0);
 
         for (Vertex vertex : path) {
             System.out.println(vertex);
