@@ -13,8 +13,8 @@ public class Application {
         Object instance;
 
         try {
-            System.out.println("pathToJar : " + Configuration.instance.pathToJar);
-            URL[] urls = {new File(Configuration.instance.pathToJar).toURI().toURL()};
+            System.out.println("pathToJar : " + Configuration.instance.pathToJar());
+            URL[] urls = {new File(Configuration.instance.pathToJar()).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls,Application.class.getClassLoader());
             Class clazz = Class.forName("ShortestPathAlgorithm",true,urlClassLoader);
             System.out.println("clazz     : " + clazz.toString());
@@ -36,27 +36,14 @@ public class Application {
         int result = Integer.MAX_VALUE;
 
         try {
-            Method method = port.getClass().getMethod("getShortestPath",int.class,int.class,int.class);
-            result = (Integer)method.invoke(port,a,b);
+            Method method = port.getClass().getMethod("getShortestPath",int.class,int[][].class,int.class);
+            result = (Integer)method.invoke(port,number_of_vertices,matrix, source);
         } catch (Exception e) {
-            System.out.println("operation " + operation + " not supported.");
+            System.out.println(e.getMessage());
         }
-
         return result;
     }
 
-    public boolean isPrime(String string) {
-        boolean result = false;
-
-        try {
-            Method method = port.getClass().getMethod("isPrime",String.class);
-            result = (Boolean)method.invoke(port,string);
-        } catch (Exception e) {
-            System.out.println("operation isPrime not supported.");
-        }
-
-        return result;
-    }
 
     public static void main(String... args) {
         Application application = new Application();

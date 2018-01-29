@@ -7,7 +7,9 @@ public enum Configuration {
     public ShortestPathAlgorithmType engineType = ShortestPathAlgorithmType.dijkstra;
     public String userDirectory = System.getProperty("user.dir");
     public String fileSeparator = System.getProperty("file.separator");
-    public String pathToJar = userDirectory + fileSeparator + getShortestPathAlgorithmType() + fileSeparator + "jar" + fileSeparator + "ShortestPathAlgorithm.jar";
+    public String pathToJar(){
+        return  userDirectory + fileSeparator + getShortestPathAlgorithmType() + fileSeparator + "jar" + fileSeparator + "ShortestPathAlgorithm.jar";
+    }
 
     public ShortestPathAlgorithmType getShortestPathAlgorithmType() {
         try {
