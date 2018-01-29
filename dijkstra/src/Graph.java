@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html
+ */
 public class Graph {
     private final List<Vertex> vertexes;
     private final List<Edge> edges;

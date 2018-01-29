@@ -2,19 +2,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Component{
+public class Dijkstra{
 
     // static instance
-    private static Component instance = new Component();
+    private static Dijkstra instance = new Dijkstra();
 
     // define port
     public Port port;
 
-    public static Component getInstance() {
+    public static Dijkstra getInstance() {
         return instance;
     }
 
-    private Component() {
+    private Dijkstra() {
         port = new Port();
     }
 
@@ -33,9 +33,15 @@ public class Component{
         }
 
         @Override
-        public LinkedList<Vertex> getShortestPath(Vertex source, Vertex target) {
+        public int getShortestPath(int source, int target) {
             initDijkstra();
-            return null;
+            dijkstra.execute(nodes.get(source));
+            LinkedList<Vertex> path = dijkstra.getPath(nodes.get(target));
+
+            for (Vertex vertex : path) {
+                System.out.println(vertex);
+            }
+            return dijkstra.getDistance(nodes.get(target));
         }
     }
 
@@ -63,20 +69,7 @@ public class Component{
         dijkstra = new DijkstraAlgorithm(graph);
     }
 
-    public void testExcute() {
-
-        dijkstra.execute(nodes.get(0));
-        LinkedList<Vertex> path = dijkstra.getPath(nodes.get(10));
-
-
-        for (Vertex vertex : path) {
-            System.out.println(vertex);
-        }
-
-    }
-
-    private void addLane(String laneId, int sourceLocNo, int destLocNo,
-                         int duration) {
+    private void addLane(String laneId, int sourceLocNo, int destLocNo, int duration) {
         Edge lane = new Edge(laneId,nodes.get(sourceLocNo), nodes.get(destLocNo), duration );
         edges.add(lane);
     }

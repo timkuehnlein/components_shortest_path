@@ -1,3 +1,6 @@
+/**
+ * http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html
+ */
 public class Vertex {
     final private String id;
     final private String name;

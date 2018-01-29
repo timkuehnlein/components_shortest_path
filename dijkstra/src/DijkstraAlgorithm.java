@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html
+ */
 public class DijkstraAlgorithm {
 
     private final List<Vertex> nodes;
@@ -118,6 +121,13 @@ public class DijkstraAlgorithm {
         // Put it into the correct order
         Collections.reverse(path);
         return path;
+    }
+
+    /**
+     * This self-written method returns the total distance between the selected source and target
+     */
+    public int getDistance(Vertex target){
+        return distance.get(target);
     }
 
 }

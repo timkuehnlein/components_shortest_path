@@ -42,6 +42,7 @@ public class TestDijkstraAlgorithm {
 
         assertNotNull(path);
         assertTrue(path.size() > 0);
+        assertNotNull(dijkstra.getDistance(nodes.get(10)));
 
         for (Vertex vertex : path) {
             System.out.println(vertex);

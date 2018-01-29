@@ -1,5 +1,5 @@
 import java.util.LinkedList;
 
 public interface IComponent {
-    LinkedList<Vertex> getShortestPath(Vertex source, Vertex target);
+    int getShortestPath(int source, int target);
 }

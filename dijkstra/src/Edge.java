@@ -1,3 +1,6 @@
+/**
+ * http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html
+ */
 public class Edge  {
     private final String id;
     private final Vertex source;
