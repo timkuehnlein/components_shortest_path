@@ -39,23 +39,23 @@ public class ShortestPathAlgorithm
     private ShortestPathAlgorithm(int numberofvertices)
     {
         this.numberofvertices = numberofvertices;
-        distances = new int[numberofvertices + 1];
+        distances = new int[numberofvertices];
     }
 
     private String BellmanFordEvaluation(int source, int adjacencymatrix[][])
     {
         String result = "";
-        for (int node = 1; node <= numberofvertices; node++)
+        for (int node = 0; node < numberofvertices; node++)
         {
             distances[node] = MAX_VALUE;
         }
 
         distances[source] = 0;
-        for (int node = 1; node <= numberofvertices - 1; node++)
+        for (int node = 0; node < numberofvertices - 1; node++)
         {
-            for (int sourcenode = 1; sourcenode <= numberofvertices; sourcenode++)
+            for (int sourcenode = 0; sourcenode < numberofvertices; sourcenode++)
             {
-                for (int destinationnode = 1; destinationnode <= numberofvertices; destinationnode++)
+                for (int destinationnode = 0; destinationnode < numberofvertices; destinationnode++)
                 {
                     if (adjacencymatrix[sourcenode][destinationnode] != MAX_VALUE)
                     {
@@ -68,9 +68,9 @@ public class ShortestPathAlgorithm
             }
         }
 
-        for (int sourcenode = 1; sourcenode <= numberofvertices; sourcenode++)
+        for (int sourcenode = 0; sourcenode < numberofvertices; sourcenode++)
         {
-            for (int destinationnode = 1; destinationnode <= numberofvertices; destinationnode++)
+            for (int destinationnode = 0; destinationnode < numberofvertices; destinationnode++)
             {
                 if (adjacencymatrix[sourcenode][destinationnode] != MAX_VALUE)
                 {
@@ -81,10 +81,10 @@ public class ShortestPathAlgorithm
             }
         }
 
-        for (int vertex = 1; vertex <= numberofvertices; vertex++)
+        for (int vertex = 0; vertex < numberofvertices; vertex++)
         {
             result = result + "distance of source  " + source + " to "
-                    + vertex + " is " + distances[vertex];
+                    + vertex + " is " + distances[vertex] + "\n";
         }
         return result;
     }

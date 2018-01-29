@@ -42,10 +42,10 @@ public class ShortestPathAlgorithm{
         private ShortestPathAlgorithm(int number_of_nodes)
         {
             this.number_of_nodes = number_of_nodes;
-            distances = new int[number_of_nodes + 1];
+            distances = new int[number_of_nodes];
             settled = new HashSet<Integer>();
             queue = new LinkedList<Integer>();
-            adjacencyMatrix = new int[number_of_nodes + 1][number_of_nodes + 1];
+            adjacencyMatrix = new int[number_of_nodes][number_of_nodes];
         }
 
         private String dijkstra_algorithm(int adjacency_matrix[][], int source)
@@ -53,11 +53,11 @@ public class ShortestPathAlgorithm{
             String result = "";
 
             int evaluationNode;
-            for (int i = 1; i <= number_of_nodes; i++)
-                for (int j = 1; j <= number_of_nodes; j++)
+            for (int i = 0; i < number_of_nodes; i++)
+                for (int j = 0; j < number_of_nodes; j++)
                     adjacencyMatrix[i][j] = adjacency_matrix[i][j];
 
-            for (int i = 1; i <= number_of_nodes; i++)
+            for (int i = 0; i < number_of_nodes; i++)
             {
                 distances[i] = Integer.MAX_VALUE;
             }
@@ -72,10 +72,10 @@ public class ShortestPathAlgorithm{
                 evaluateNeighbours(evaluationNode);
             }
 
-            result += ("The Shorted Path to all nodes are ");
-            for (int i = 1; i <= distances.length - 1; i++)
+            result += ("Dijkstra says the Shorted Path to all nodes are ");
+            for (int i = 0; i < distances.length - 1; i++)
             {
-                result += (source + " to " + i + " is " + distances[i]);
+                result += (source + " to " + i + " is " + distances[i] + "\n");
             }
             return result;
         }
@@ -88,7 +88,7 @@ public class ShortestPathAlgorithm{
             node = iterator.next();
             min = distances[node];
 
-            for (int i = 1; i <= distances.length; i++)
+            for (int i = 0; i < distances.length; i++)
             {
                 if (queue.contains(i))
                 {
@@ -108,7 +108,7 @@ public class ShortestPathAlgorithm{
             int edgeDistance = -1;
             int newDistance = -1;
 
-            for (int destinationNode = 1; destinationNode <= number_of_nodes; destinationNode++)
+            for (int destinationNode = 0; destinationNode < number_of_nodes; destinationNode++)
             {
                 if (!settled.contains(destinationNode))
                 {

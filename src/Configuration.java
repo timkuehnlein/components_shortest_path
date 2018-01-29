@@ -14,25 +14,6 @@ public enum Configuration {
         return  userDirectory + fileSeparator + getShortestPathAlgorithmType() + fileSeparator + "jar" + fileSeparator + "ShortestPathAlgorithm.jar";
     }
 
-    /*public ShortestPathAlgorithmType getShortestPathAlgorithmType() {
-        try {
-            Properties properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "ShortestPathAlgorithmType.props");
-            properties.load(fileInputStream);
-            fileInputStream.close();
-            if (properties.getProperty("ShortestPathAlgorithmType").equals("dijkstra"))
-                return ShortestPathAlgorithmType.dijkstra;
-            else if (properties.getProperty("ShortestPathAlgorithmType").equals("bellman_ford"))
-                return ShortestPathAlgorithmType.bellman_ford;
-            else
-                return null;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return null;
-    }*/
-
     public Properties getProperty() {
         try {
             Properties properties = new Properties();
@@ -52,7 +33,7 @@ public enum Configuration {
         try {
             Properties props = new Properties();
             props.setProperty("ShortestPathAlgorithmType", argS);
-            File f = new File(userDirectory + fileSeparator + "ShortestPathAlgorithmType.props");
+            File f = new File(userDirectory + fileSeparator + "ShortestPathAlgorithm.props");
             OutputStream out = new FileOutputStream( f );
             props.store(out, "");
             out.close();

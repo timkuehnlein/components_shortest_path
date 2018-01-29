@@ -5,18 +5,82 @@ import java.net.URLClassLoader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Example:
+ *
+ * pathToJar : C:\Users\kuehn\sourcetree\Documents\components_shortest_path\dijkstra\jar\ShortestPathAlgorithm.jar
+ clazz     : class ShortestPathAlgorithm
+ port      : 1580066828
+ version   : Dijkstra 1.0
+
+ 01
+ Dijkstra, Bellman_Ford
+ 02
+ dijkstra
+ 03 bellman-ford
+ pathToJar : C:\Users\kuehn\sourcetree\Documents\components_shortest_path\bellman-ford\jar\ShortestPathAlgorithm.jar
+ clazz     : class ShortestPathAlgorithm
+ port      : 1523554304
+ version   : Bellman-Ford 1.0
+
+ New current component:bellman-ford
+ 04
+ Enter the number of vertices
+ 5
+ Enter the Weighted Matrix for the graph
+ 0 7 0 0 2
+ 0 0 1 0 2
+ 0 0 0 4 0
+ 0 0 5 0 0
+ 0 3 8 5 0
+ Enter the source
+ 1
+ distance of source  1 to 0 is -2147483647
+ distance of source  1 to 1 is -2147483642
+ distance of source  1 to 2 is -2147483641
+ distance of source  1 to 3 is -2147483640
+ distance of source  1 to 4 is -2147483645
+
+ 03 dijkstra
+ pathToJar : C:\Users\kuehn\sourcetree\Documents\components_shortest_path\dijkstra\jar\ShortestPathAlgorithm.jar
+ clazz     : class ShortestPathAlgorithm
+ port      : 804564176
+ version   : Dijkstra 1.0
+
+ New current component:dijkstra
+ 04
+ Enter the number of vertices
+ 5
+ Enter the Weighted Matrix for the graph
+ 0 7 0 0 2
+ 0 0 1 0 2
+ 0 0 0 4 0
+ 0 0 5 0 0
+ 0 3 8 5 0
+ Enter the source
+ 1
+ Dijkstra says the Shorted Path to all nodes are 1 to 0 is 2147483647
+ 1 to 1 is 0
+ 1 to 2 is 1
+ 1 to 3 is 5
+
+ Source of code:
+ http://www.sanfoundry.com/java-program-implement-dijkstras-algorithm-using-queue/
+ http://www.sanfoundry.com/java-program-implement-bellmanford-algorithm/
+ */
 public class Application {
+    private Class clazz;
+    private Object instance;
     private Object port;
 
     @SuppressWarnings({"rawtypes","unchecked"})
     public void createShortestPathAlgorithmPortInstance() {
-        Object instance;
 
         try {
             System.out.println("pathToJar : " + Configuration.instance.pathToJar());
             URL[] urls = {new File(Configuration.instance.pathToJar()).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls,Application.class.getClassLoader());
-            Class clazz = Class.forName("ShortestPathAlgorithm",true,urlClassLoader);
+            clazz = Class.forName("ShortestPathAlgorithm",true,urlClassLoader);
             System.out.println("clazz     : " + clazz.toString());
 
             instance = clazz.getMethod("getInstance",new Class[0]).invoke(null,new Object[0]);
@@ -32,12 +96,12 @@ public class Application {
         }
     }
 
-    public int execute(int number_of_vertices, int[][] matrix, int source) {
-        int result = Integer.MAX_VALUE;
+    public String execute(int number_of_vertices, int[][] matrix, int source) {
+        String result = "";
 
         try {
             Method method = port.getClass().getMethod("getShortestPath",int.class,int[][].class,int.class);
-            result = (Integer)method.invoke(port,number_of_vertices,matrix, source);
+            result = (String) method.invoke(port,number_of_vertices,matrix, source);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -56,9 +120,9 @@ public class Application {
             adjacency_matrix = new int[number_of_vertices + 1][number_of_vertices + 1];
 
             System.out.println("Enter the Weighted Matrix for the graph");
-            for (int i = 1; i <= number_of_vertices; i++)
+            for (int i = 0; i < number_of_vertices; i++)
             {
-                for (int j = 1; j <= number_of_vertices; j++)
+                for (int j = 0; j < number_of_vertices; j++)
                 {
                     adjacency_matrix[i][j] = scan.nextInt();
                     if (i == j)
@@ -76,7 +140,7 @@ public class Application {
             System.out.println("Enter the source ");
             source = scan.nextInt();
 
-            execute(number_of_vertices, adjacency_matrix, source);
+            System.out.println(execute(number_of_vertices, adjacency_matrix, source));
 
         } catch (InputMismatchException inputMismatch)
         {
@@ -89,15 +153,19 @@ public class Application {
 
         Scanner scan = new Scanner(System.in);
         while(true){
-            String line = scan.next();
+            String line = scan.nextLine();
             if(line.equalsIgnoreCase("show components")||line.equalsIgnoreCase("01")){
                 System.out.println("Dijkstra, Bellman_Ford");
             }else if(line.equalsIgnoreCase("show current component") || line.equalsIgnoreCase("02")){
                 System.out.println(Configuration.instance.getShortestPathAlgorithmType());
             }else if(line.equalsIgnoreCase("set current component dijkstra") || line.equalsIgnoreCase("03 dijkstra")){
                 Configuration.instance.setProperty("dijkstra");
+                application.createShortestPathAlgorithmPortInstance();
+                System.out.println("New current component:" + Configuration.instance.getShortestPathAlgorithmType());
             }else if(line.equalsIgnoreCase("set current component bellman-ford") || line.equalsIgnoreCase("03 bellman-ford")){
                 Configuration.instance.setProperty("bellman-ford");
+                application.createShortestPathAlgorithmPortInstance();
+                System.out.println("New current component:" + Configuration.instance.getShortestPathAlgorithmType());
             }else if(line.equalsIgnoreCase("execute") || line.equalsIgnoreCase("04")){
                 application.shortestPathAlgorithm(scan);
             }else if(line.equalsIgnoreCase("fin") || line.equalsIgnoreCase("05")){
