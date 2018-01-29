@@ -1,5 +1,5 @@
 import java.util.LinkedList;
 
 public interface IComponent {
-    LinkedList<Vertex> getShortestPath(Vertex source, Vertex target);
+    String getShortestPath(int number_of_vertices, int adjacency_matrix[][], int source);
 }
