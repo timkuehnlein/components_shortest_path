@@ -1,20 +1,42 @@
 import java.util.Scanner;
 
-public class BellmanFord
+public class ShortestPathAlgorithm
 {
     private int distances[];
     private int numberofvertices;
     public static final int MAX_VALUE = 999;
 
+    // static instance
+    private static ShortestPathAlgorithm instance = new ShortestPathAlgorithm();
+
+    // define port
+    public Port port;
+
+    public static ShortestPathAlgorithm getInstance() {
+        return instance;
+    }
+
+    private ShortestPathAlgorithm() {
+        port = new Port();
+    }
+
+    public String getVersion() {
+        return "Dijkstra 0.9";
+    }
+
+
     public class Port{
         public String getShortestPath(int numberofvertices, int adjacencymatrix[][], int source){
-            BellmanFord bellmanford = new BellmanFord(numberofvertices);
+            ShortestPathAlgorithm bellmanford = new ShortestPathAlgorithm(numberofvertices);
             return bellmanford.BellmanFordEvaluation(source, adjacencymatrix);
+        }
+        public void printVersion() {
+            System.out.println(getVersion() + "\n");
         }
 
     }
 
-    private BellmanFord(int numberofvertices)
+    private ShortestPathAlgorithm(int numberofvertices)
     {
         this.numberofvertices = numberofvertices;
         distances = new int[numberofvertices + 1];
