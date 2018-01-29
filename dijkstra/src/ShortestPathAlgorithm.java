@@ -1,18 +1,18 @@
 import java.util.*;
 
-public class Dijkstra{
+public class ShortestPathAlgorithm{
 
     // static instance
-    private static Dijkstra instance = new Dijkstra();
+    private static ShortestPathAlgorithm instance = new ShortestPathAlgorithm();
 
     // define port
     public Port port;
 
-    public static Dijkstra getInstance() {
+    public static ShortestPathAlgorithm getInstance() {
         return instance;
     }
 
-    private Dijkstra() {
+    private ShortestPathAlgorithm() {
         port = new Port();
     }
 
@@ -38,13 +38,13 @@ public class Dijkstra{
 
         @Override
         public String getShortestPath(int number_of_vertices, int adjacency_matrix[][], int source) {
-            Dijkstra dijkstra = new Dijkstra(number_of_vertices);
+            ShortestPathAlgorithm dijkstra = new ShortestPathAlgorithm(number_of_vertices);
             return dijkstra.dijkstra_algorithm(adjacency_matrix, source);
         }
     }
 
 
-        private Dijkstra(int number_of_nodes)
+        private ShortestPathAlgorithm(int number_of_nodes)
         {
             this.number_of_nodes = number_of_nodes;
             distances = new int[number_of_nodes + 1];
