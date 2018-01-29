@@ -17,13 +17,8 @@ public class ShortestPathAlgorithm{
     }
 
     public String getVersion() {
-        return "Dijkstra 0.9";
+        return "Dijkstra 1.0";
     }
-
-    //private List<Vertex> nodes;
-    //private List<Edge> edges;
-    //private Graph graph;
-    //private DijkstraAlgorithm dijkstra;
 
     private int distances[];
     private Queue<Integer> queue;
@@ -32,8 +27,8 @@ public class ShortestPathAlgorithm{
     private int adjacencyMatrix[][];
 
     public class Port implements IComponent{
-        public void printVersion() {
-            System.out.println(getVersion() + "\n");
+        public String getVersion() {
+            return instance.getVersion() + "\n";
         }
 
         @Override

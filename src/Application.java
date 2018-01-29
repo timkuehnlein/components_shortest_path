@@ -32,7 +32,7 @@ public class Application {
         }
     }
 
-    public int execute(int number_of_vertices, int [][] matrix, int source) {
+    public int execute(int number_of_vertices, int[][] matrix, int source) {
         int result = Integer.MAX_VALUE;
 
         try {
@@ -44,15 +44,10 @@ public class Application {
         return result;
     }
 
-
-    public static void main(String... args) {
-        Application application = new Application();
-        application.createShortestPathAlgorithmPortInstance();
-
+    private void shortestPathAlgorithm(Scanner scan){
         int adjacency_matrix[][];
         int number_of_vertices;
         int source = 0;
-        Scanner scan = new Scanner(System.in);
 
         try
         {
@@ -81,17 +76,36 @@ public class Application {
             System.out.println("Enter the source ");
             source = scan.nextInt();
 
-            application.execute(number_of_vertices, adjacency_matrix, source);
+            execute(number_of_vertices, adjacency_matrix, source);
 
         } catch (InputMismatchException inputMismatch)
         {
             System.out.println("Wrong Input Format");
         }
-        scan.close();
+    }
+    public static void main(String... args) {
+        Application application = new Application();
+        application.createShortestPathAlgorithmPortInstance();
 
-        //System.out.println("5 + 3     : " + application.execute(5,3,"add"));
-        //System.out.println("5 - 3     : " + application.execute(5,3,"subtract"));
-        //System.out.println("5 * 3     : " + application.execute(5,3,"multiply"));
-        //System.out.println("3 (prime) : " + application.isPrime("3"));
+        Scanner scan = new Scanner(System.in);
+        while(true){
+            String line = scan.next();
+            if(line.equalsIgnoreCase("show components")||line.equalsIgnoreCase("01")){
+                System.out.println("Dijkstra, Bellman_Ford");
+            }else if(line.equalsIgnoreCase("show current component") || line.equalsIgnoreCase("02")){
+                System.out.println(Configuration.instance.getShortestPathAlgorithmType());
+            }else if(line.equalsIgnoreCase("set current component dijkstra") || line.equalsIgnoreCase("03 dijkstra")){
+                Configuration.instance.setProperty("dijkstra");
+            }else if(line.equalsIgnoreCase("set current component bellman-ford") || line.equalsIgnoreCase("03 bellman-ford")){
+                Configuration.instance.setProperty("bellman-ford");
+            }else if(line.equalsIgnoreCase("execute") || line.equalsIgnoreCase("04")){
+                application.shortestPathAlgorithm(scan);
+            }else if(line.equalsIgnoreCase("fin") || line.equalsIgnoreCase("05")){
+                System.out.println("FIN");
+                break;
+            }
+        }
+        scan.close();
+        System.exit(0);
     }
 }

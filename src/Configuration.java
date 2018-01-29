@@ -36,7 +36,7 @@ public enum Configuration {
     public Properties getProperty() {
         try {
             Properties properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "correlation.props");
+            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "ShortestPathAlgorithm.props");
             properties.load(fileInputStream);
             fileInputStream.close();
             return properties;
@@ -51,8 +51,8 @@ public enum Configuration {
 
         try {
             Properties props = new Properties();
-            props.setProperty("correlationType", argS);
-            File f = new File(userDirectory + fileSeparator + "correlation.props");
+            props.setProperty("ShortestPathAlgorithmType", argS);
+            File f = new File(userDirectory + fileSeparator + "ShortestPathAlgorithmType.props");
             OutputStream out = new FileOutputStream( f );
             props.store(out, "");
             out.close();
@@ -66,11 +66,11 @@ public enum Configuration {
         try {
             Properties properties = getProperty();
             if (properties.getProperty("ShortestPathAlgorithmType").equals("dijkstra"))
-                //return ""+ CorrelationType.spearman;
+                //return ""+ ShortestPathAlgorithmType.dijkstra;
                 return "dijkstra";
-            else if (properties.getProperty("ShortestPathAlgorithmType").equals("bellman_ford"))
-                //return ""+ CorrelationType.pearson;
-                return "bellman_ford";
+            else if (properties.getProperty("ShortestPathAlgorithmType").equals("bellman-ford"))
+                //return ""+ ShortestPathAlgorithmType.bellman_ford;
+                return "bellman-ford";
             else
                 return null;
         } catch (Exception e) {

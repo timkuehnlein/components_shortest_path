@@ -21,7 +21,7 @@ public class ShortestPathAlgorithm
     }
 
     public String getVersion() {
-        return "Dijkstra 0.9";
+        return "Bellman-Ford 1.0";
     }
 
 
@@ -30,8 +30,8 @@ public class ShortestPathAlgorithm
             ShortestPathAlgorithm bellmanford = new ShortestPathAlgorithm(numberofvertices);
             return bellmanford.BellmanFordEvaluation(source, adjacencymatrix);
         }
-        public void printVersion() {
-            System.out.println(getVersion() + "\n");
+        public String getVersion() {
+            return instance.getVersion() + "\n";
         }
 
     }
