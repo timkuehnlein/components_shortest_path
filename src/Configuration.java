@@ -1,26 +1,30 @@
+import java.io.FileInputStream;
+import java.util.Properties;
+
 public enum Configuration {
     instance;
 
-    public String fileSeparator = System.getProperty("file.separator");
+    public ShortestPathAlgorithmType engineType = ShortestPathAlgorithmType.dijkstra;
     public String userDirectory = System.getProperty("user.dir");
+    public String fileSeparator = System.getProperty("file.separator");
+    public String pathToJar = userDirectory + fileSeparator + getShortestPathAlgorithmType() + fileSeparator + "jar" + fileSeparator + "ShortestPathAlgorithm.jar";
 
-    public String typeOfShortestPathAlgorithm = "02";
-    public String nameOfSubFolder = "exchange_component_" + typeOfShortestPathAlgorithm + fileSeparator + "jar";
-    public String nameOfJavaArchive = "ShortestPathAlgorithm.jar";
-    public String subFolderPathOfJavaArchive = nameOfSubFolder + fileSeparator + nameOfJavaArchive;
-    public String fullPathToJavaArchive = userDirectory + subFolderPathOfJavaArchive;
-    public String nameOfClass = "Dijkstra";
+    public ShortestPathAlgorithmType getShortestPathAlgorithmType() {
+        try {
+            Properties properties = new Properties();
+            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "ShortestPathAlgorithmType.props");
+            properties.load(fileInputStream);
+            fileInputStream.close();
+            if (properties.getProperty("ShortestPathAlgorithmType").equals("dijkstra"))
+                return ShortestPathAlgorithmType.dijkstra;
+            else if (properties.getProperty("ShortestPathAlgorithmType").equals("bellman_ford"))
+                return ShortestPathAlgorithmType.bellman_ford;
+            else
+                return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-    public void print() {
-        System.out.println("--- Configuration");
-        System.out.println("fileSeparator              : " + fileSeparator);
-        System.out.println("userDirectory              : " + userDirectory);
-        System.out.println("typeOfShortestPathAlgorithm          : " + typeOfShortestPathAlgorithm);
-        System.out.println("nameOfSubFolder            : " + nameOfSubFolder);
-        System.out.println("nameOfJavaArchive          : " + nameOfJavaArchive);
-        System.out.println("subFolderPathOfJavaArchive : " + subFolderPathOfJavaArchive);
-        System.out.println("fullPathToJavaArchive      : " + fullPathToJavaArchive);
-        System.out.println("nameOfClass                : " + nameOfClass);
-        System.out.println();
+        return null;
     }
 }
