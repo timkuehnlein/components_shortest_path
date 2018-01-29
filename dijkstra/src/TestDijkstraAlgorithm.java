@@ -2,44 +2,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Component{
+import org.junit.jupiter.api.*;
 
-    // static instance
-    private static Component instance = new Component();
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    // define port
-    public Port port;
-
-    public static Component getInstance() {
-        return instance;
-    }
-
-    private Component() {
-        port = new Port();
-    }
-
-    public String getVersion() {
-        return "Dijkstra 0.9";
-    }
+public class TestDijkstraAlgorithm {
 
     private List<Vertex> nodes;
     private List<Edge> edges;
-    private Graph graph;
-    private DijkstraAlgorithm dijkstra;
 
-    public class Port implements IComponent{
-        public void printVersion() {
-            System.out.println(getVersion() + "\n");
-        }
-
-        @Override
-        public LinkedList<Vertex> getShortestPath(Vertex source, Vertex target) {
-            initDijkstra();
-            return null;
-        }
-    }
-
-    private void initDijkstra() {
+    @Test
+    public void testExcute() {
         nodes = new ArrayList<Vertex>();
         edges = new ArrayList<Edge>();
         for (int i = 0; i < 11; i++) {
@@ -59,15 +33,15 @@ public class Component{
         addLane("Edge_9", 4, 9, 502);
         addLane("Edge_10", 9, 10, 40);
         addLane("Edge_11", 1, 10, 600);
-        graph = new Graph(nodes, edges);
-        dijkstra = new DijkstraAlgorithm(graph);
-    }
 
-    public void testExcute() {
-
+        // Lets check from location Loc_1 to Loc_10
+        Graph graph = new Graph(nodes, edges);
+        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
         dijkstra.execute(nodes.get(0));
         LinkedList<Vertex> path = dijkstra.getPath(nodes.get(10));
 
+        assertNotNull(path);
+        assertTrue(path.size() > 0);
 
         for (Vertex vertex : path) {
             System.out.println(vertex);
